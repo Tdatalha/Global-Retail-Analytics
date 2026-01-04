@@ -3,7 +3,7 @@ with customer_segment as (select c.Country,
 year(s.Order_Date) as order_year,
 sum(s.Quantity * p.Unit_Price_USD * Er.Exchange) as total_revenue,
 count(s.Order_Number) as total_orders
- from sales s
+Â from sales s
 left join Products p
 on s.ProductKey = p.ProductKey
 left join Exchange_Rates Er
@@ -24,13 +24,13 @@ select
 *,
 CASE
 	when growth_rate is null then 'New market'
-    WHEN growth_rate >= 30 THEN 'Explosive Growth'
-    WHEN growth_rate >= 15 THEN 'Strong Growth'
-    WHEN growth_rate >= 5 THEN 'Moderate Growth'
-    WHEN growth_rate >= -5 AND growth_rate < 5 THEN 'Flat / Stable'
-    WHEN growth_rate >= -15 THEN 'Mild Decline'
-    WHEN growth_rate >= -30 THEN 'Significant Decline'
-    ELSE 'Severe Decline / Loss'
+Â Â Â Â WHEN growth_rate >= 30 THEN 'Explosive Growth'
+Â Â Â Â WHEN growth_rate >= 15 THEN 'Strong Growth'
+Â Â Â Â WHEN growth_rate >= 5 THEN 'Moderate Growth'
+Â Â Â Â WHEN growth_rate >= -5 AND growth_rate < 5 THEN 'Flat / Stable'
+Â Â Â Â WHEN growth_rate >= -15 THEN 'Mild Decline'
+Â Â Â Â WHEN growth_rate >= -30 THEN 'Significant Decline'
+Â Â Â Â ELSE 'Severe Decline / Loss'
 END AS growth_segment,
 Round(sum(total_revenue)over(partition by country order by order_year rows unbounded preceding),2) as cumulative_revenue
 from Growth_rate
